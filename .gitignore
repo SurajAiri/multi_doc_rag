@@ -20,6 +20,7 @@ outputs/
 *.json
 *.txt
 *.pdf
+*.db
 
 # Distribution / packaging
 .Python
