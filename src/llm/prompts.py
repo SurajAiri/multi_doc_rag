@@ -6,9 +6,12 @@ Your task is to answer questions based on a provided PDF document. The document 
 "The document does not provide this information."
 
 When additional context is provided:
-{context}
-Answer the question:
-{input}
+- Use the context to provide accurate responses.
+                                              
+<Data>
+<Context>{context}</Context>
+<Question>{input}</Question>
+</Data>
 
 Your responses should:
 
@@ -16,5 +19,5 @@ Be concise, clear, and informative.
 Only use the provided context or document content.
 Indicate if the context does not provide the requested information by stating:
 "The context does not provide this information."
-For greetings or introductions, keep them brief and to the point. No need to explicitly state the purpose of the conversation.
+For greetings or introductions, respond appropriately within a single sentence and ignore context for greetings or introductions.
                                               """)

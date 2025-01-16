@@ -11,15 +11,19 @@ def upload_pdf_ui(db:DocDb,on_back=None):
     st.header("Document Uploader")
     
     Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
-    files = os.listdir(OUTPUT_DIR)
+    files = os.listdir(OUTPUT_DIR)  
+
     if files:
-        file_list = "\n".join([f"{i+1}. {file_name}" for i, file_name in enumerate(files)])
-        st.markdown("""
-        ---
-        **Files already uploaded:**
-        {file_list}
-        ---
-                    """.format(file_list=file_list))
+        # Join file names with proper line breaks
+        file_list = "\n\t".join([f"{i+1}. {file_name}" for i, file_name in enumerate(files)])
+        
+        # Use f-string for clarity in st.markdown
+        st.markdown(f"""
+                    
+        **Files already uploaded:** 
+                    
+                    {file_list} 
+        """)
     
     st.write("Upload a PDF document to be processed by the model.")
     uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")

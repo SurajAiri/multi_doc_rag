@@ -1,9 +1,26 @@
-from langchain.document_loaders import PyMuPDFLoader
+from langchain.document_loaders import PyMuPDFLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 from pathlib import Path
 
 class DocLoader:
+    @staticmethod
+    def load_text(path):
+        # Check if the given path exists
+        if not os.path.exists(path):
+            raise FileNotFoundError(f"The file at path {path} does not exist.")
+
+        try:
+            # loading file
+            text = TextLoader(path)
+            docs = text.load()
+
+            # Splitting the document into chunks
+            return DocLoader.__split_docs__(docs)
+        except Exception as e:
+            raise RuntimeError(f"An error occurred while loading the text: {e}")
+
+
     @staticmethod
     def load_pdf(path):
         # Check if the given path exists

@@ -32,6 +32,7 @@ def chat_ui(messages:list[dict],model:ModelRunner,append_message=None):
                 if(response.get("answer","") == ""):
                     # print(response)
                     message_placeholder.markdown("Model is thinking...")
+                    print(response.get("context",""))
                     continue
                 full_response += response.get("answer","")
                 message_placeholder.markdown(full_response + "|")

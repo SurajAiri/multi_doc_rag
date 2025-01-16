@@ -15,8 +15,8 @@ class ModelRunner:
             self.doc_db = DocDb(path)
         else:
             raise ValueError("Either doc_db or path must be provided")
-        retriever = self.doc_db.vector_store.as_retriever()
-        model = ChatOllama(model='phi3.5', temperature=0.4)
+        retriever = self.doc_db.vector_store.as_retriever(similarity_threshold=0.8, top_k=3)
+        model = ChatOllama(model='phi3.5', temperature=0.6)
         mdl = create_stuff_documents_chain(model, prompt=PDF_PROMPT)
         self.chain = create_retrieval_chain(retriever, mdl)
 
