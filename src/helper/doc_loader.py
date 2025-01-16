@@ -21,13 +21,9 @@ class DocLoader:
             raise RuntimeError(f"An error occurred while loading the PDF: {e}")
     
     @staticmethod
-    def load_pdf_bytes(name, pdf_bytes):
+    def load_pdf_bytes(file_path, pdf_bytes):
         try:
             # id = uuid.uuid4()
-            OUTPUT_DIR = "output/upload/pdf/"
-            Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
-            file_path = os.path.join(OUTPUT_DIR, name)
-
             if os.path.exists(file_path):
                 raise FileExistsError(f"The file at path {file_path} already exists.")
             

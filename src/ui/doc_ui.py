@@ -1,10 +1,26 @@
+import os
+from pathlib import Path
 import streamlit as st
 
 from src.helper.doc_db import DocDb
 from src.helper.doc_loader import DocLoader
 
-def upload_pdf_ui(db:DocDb,on_upload=None,on_back=None):
+OUTPUT_DIR = "output/upload/pdf/"
+
+def upload_pdf_ui(db:DocDb,on_back=None):
     st.header("Document Uploader")
+    
+    Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
+    files = os.listdir(OUTPUT_DIR)
+    if files:
+        file_list = "\n".join([f"{i+1}. {file_name}" for i, file_name in enumerate(files)])
+        st.markdown("""
+        ---
+        **Files already uploaded:**
+        {file_list}
+        ---
+                    """.format(file_list=file_list))
+    
     st.write("Upload a PDF document to be processed by the model.")
     uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")
     # st.button(label="Back",on_click=on_back) 
@@ -12,7 +28,12 @@ def upload_pdf_ui(db:DocDb,on_upload=None,on_back=None):
         st.write("File uploaded successfully.")
         try:
             st.write("Processing the document...")
-            docs = DocLoader.load_pdf_bytes(uploaded_file.name,uploaded_file.getvalue())
+            # Create the output directory
+
+            file_path = os.path.join(OUTPUT_DIR, uploaded_file.name)
+
+
+            docs = DocLoader.load_pdf_bytes(file_path,uploaded_file.getvalue())
             st.write("Encoding and adding the document to the database...")
             # Add the documents to the database
             db.add_document(docs)

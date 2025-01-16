@@ -29,11 +29,15 @@ def chat_ui(messages:list[dict],model:ModelRunner,append_message=None):
             full_response = ""
             
             for response in model.ask_stream(prompt):
+                if(response.get("answer","") == ""):
+                    # print(response)
+                    message_placeholder.markdown("Model is thinking...")
+                    continue
                 full_response += response.get("answer","")
                 message_placeholder.markdown(full_response + "|")
 
             message_placeholder.markdown(full_response)
-        st.session_state.messages.append({"role": "assistant", "content": full_response})
+        append_message({"role": "assistant", "content": full_response})
 
     # # Save chat history after each interaction
     # save_chat_history(st.session_state.messages)

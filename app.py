@@ -33,7 +33,7 @@ def main():
     # states
     # View page
     if 'view_page' not in st.session_state:
-        st.session_state.view_page = 'upload_doc'
+        st.session_state.view_page = 'home'
     # Initialize or load chat history
     if "messages" not in st.session_state:
         st.session_state.messages = load_chat_history()
