@@ -19,6 +19,7 @@ outputs/
 *.xls
 *.json
 *.txt
+*.pdf
 
 # Distribution / packaging
 .Python
